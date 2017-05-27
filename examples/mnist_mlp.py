@@ -19,7 +19,7 @@ num_classes = 10
 epochs = 20
 
 # the data, shuffled and split between train and test sets
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+(x_train, y_train), (x_test, y_test) = mnist.load_data(path=r'D:\self_learn\MachineLearning\keras\keras\datasets\mnist.npz')
 
 x_train = x_train.reshape(60000, 784)
 x_test = x_test.reshape(10000, 784)
@@ -31,15 +31,17 @@ print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 
 # convert class vectors to binary class matrices
+# convert scalar to logical vector
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
+# 784 is the input layer(x), para size is 784*513
 model.add(Dense(512, activation='relu', input_shape=(784,)))
 model.add(Dropout(0.2))
-model.add(Dense(512, activation='relu'))
+model.add(Dense(512, activation='relu')) # 512*513
 model.add(Dropout(0.2))
-model.add(Dense(10, activation='softmax'))
+model.add(Dense(10, activation='softmax')) # 10*513
 
 model.summary()
 
